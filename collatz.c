@@ -1,4 +1,4 @@
-/* collatz.c - Steps required to reach 1 following the Collatz conjecture from 0 to 2^64-1
+/* collatz.c - Steps required to reach 1 following the Collatz conjecture
  * Copyright (C) 2016 Kenneth B. Jensen <kenneth@jensen.cf>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -36,14 +36,16 @@
 #define DATATYPE long long int
 #endif
 
-
+/* Arguments: None.
+ * Output: number[0-MAX_VAL] steps taken
+ */
 int main (void) {
 	unsigned DATATYPE num, cur;
 	unsigned short steps; // a short should fit all the steps needed
 	printf("number\tsteps\n");
 
 	for (num = 0; num < MAX_VAL; ++num) {
-		cur = num; 
+		cur = num; // we do not want to lose num's value; clone it.
 		steps = 0;
 		printf("%d\t", num);
 		while (cur > 1 && ++steps < 65536) {
