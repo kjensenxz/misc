@@ -17,5 +17,5 @@ POSIX true and false, written from inspirarion after viewing GNU coreutils' sour
 A small example of bitpacking in C.
 
 ### taocp\_1.2.1\_P.c & taocp\_1.2.1\_P\_verify.sh 
-`.c`: Equation (1) in Donald Knuth's *"The Art of Computer Programming"*, Volume 1, Section 1.2.1
-`\_verify.sh`: Used to verify the output of the aforementioned program
+`.c`: Equation (1) in Donald Knuth's *"The Art of Computer Programming"*, Volume 1, Section 1.2.1  
+`_verify.sh`: Used to verify the output of the aforementioned program
