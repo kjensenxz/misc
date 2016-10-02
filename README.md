@@ -1,5 +1,6 @@
 # Misc
-Short programs unsuitable for their own repositories.
+Short programs unsuitable for their own repositories.  
+This list is more or less in the order of commits
 
 ## Licensing
 Please view the license header in each of the source code files; files without license headers are part of the public domain.
@@ -19,3 +20,6 @@ A small example of bitpacking in C.
 ### taocp\_1.2.1\_P.c & taocp\_1.2.1\_P\_verify.sh 
 `.c`: Equation (1) in Donald Knuth's *"The Art of Computer Programming"*, Volume 1, Section 1.2.1  
 `_verify.sh`: Used to verify the output of the aforementioned program
+
+### fizzbuzz.c
+An implementation of [FizzBuzz](http://c2.com/cgi/wiki?FizzBuzzTest) in C.
