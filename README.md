@@ -1,10 +1,10 @@
 # Misc
-Short programs unsuitable for their own repositories.
-This list is more or less in the order of commits
+Short programs unsuitable for their own repositories.  
+This list is more or less in the order of commits  
 Additions, new programs, and fixes are welcome
 
 ## Licensing
-Please view the license header in each of the source code files; files without license headers are part of the public domain.
+**Please view the license header in each of the source code files**; files without license headers are part of the public domain.
 
 ### collatz.c
 Collatz conjecture for a set range of numbers
