@@ -27,3 +27,7 @@ An implementation of [FizzBuzz](http://c2.com/cgi/wiki?FizzBuzzTest) in C.
 
 ### [fisher-yates.c](fisher-yates.c)
 Simple implementation of [Fisher-Yates' algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm) in C.
+
+### [isPrime.c](isPrime.c)
+An efficient algorithm for checking if a number is prime or not using bit fiddling and halving the number of divisor halving 
+with division by odd numbers only.
