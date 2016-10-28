@@ -26,8 +26,11 @@ A small example of bitpacking in C.
 An implementation of [FizzBuzz](http://c2.com/cgi/wiki?FizzBuzzTest) in C.
 
 ### [fisher-yates.c](fisher-yates.c)
-Simple implementation of [Fisher-Yates' algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm) in C.
+Simple implementation of [Fisher-Yates' algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm).
 
 ### [isPrime.c](isPrime.c)
-An efficient algorithm for checking if a number is prime or not using bit fiddling and halving the number of divisor halving 
-with division by odd numbers only.
+An efficient algorithm for checking if a number is prime using bit fiddling and halving the number of divisor halving with 
+division by odd numbers only.
+
+### [today.c](today.c)
+Display the day of the week and the date using time(), strftime(), and [Zeller's congruence](https://en.wikipedia.org/wiki/Zeller%27s_congruence).
