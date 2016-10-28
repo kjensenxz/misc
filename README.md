@@ -33,4 +33,4 @@ An efficient algorithm for checking if a number is prime using bit fiddling and 
 division by odd numbers only.
 
 ### [today.c](today.c)
-Display the day of the week and the date using time(), strftime(), and [Zeller's congruence](https://en.wikipedia.org/wiki/Zeller%27s_congruence).
+Display the day of the week and the date using `time()`, `strftime()`, and [Zeller's congruence](https://en.wikipedia.org/wiki/Zeller%27s_congruence).
