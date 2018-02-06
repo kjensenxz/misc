@@ -1,126 +1,143 @@
-// mango.c v1.0.2 - short program to print out "mango"
+// mango.c v1.1.2 - mango your text!
 // Copyright (C) 2018 joe_dirt plz no steal
+
+// TODO: errno.h
+// TODO: v2.0: reverse mango!
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 
-#define STRBUF 7
-// STRBUF[-1] = '\0'
-
 // 'sys' functions -- shell to API
-void usage (int argc, char **argv);
-void parseopts (int argc, char **argv);
+void usage (int, char **);
+void parseopts (int, char **, const char *);
+const char * argvtostr (int, char **);
 
-// API functions -- API to ABI
+// API functions -- API to ABI (to be moved to a library)
 void mango(const char *);
-// void mangor(const char *); // 2.0 feature
+void mangor(const char *x) {}; // 2.0 feature
 
-// ABI functions -- the real workhorses, computational functions
-void mangoh(char *);
-void mangov(char *);
-// void mangorv(char *); // 2.0 feature
-// void mangorh(char *); // 2.0 feature
+// ABI functions -- the real workhorses, computational functions (also to be moved to a library)
+void mangoh(const char *);
+void mangov(const char *);
+void mangorv(const char *); // 2.0 feature
+void mangorh(const char *); // 2.0 feature
 
-void mangov(char *msg) {
-	unsigned char i = 0;
-	for (i = 0; i < strnlen(msg, STRBUF); ++i) {
-		printf("%c\n", i[msg]);
-	}
+void mangov(const char *msg) {
+        unsigned char i = 0;
+        for (i = 1; i < strlen(msg) - 1 ; ++i) {
+                // the first and last char can be safely skipped to format output correctly
+                printf("%c\n", i[msg]);
+        }
 }
 
-void mangoh(char *msg) {
-	// msg is already guaranteed to be alloc'd and in-bounds, just skip all of this,
-	// the API mango()
-	/*
-	if (m == NULL) {
-		fprintf(stderr, "Value is a null pointer, terminating with"
-				" EXIT_FAILURE.\r\n");
-		exit(EXIT_FAILURE);
-	}
-	*/
-
-	// notes for adapting into taking any value
-	// STRBUF == 25; msg[24] = '\0', 23 is len, (25-2) = 23; 23 * 2 includes a space for every char,
-	// we only need one: (STRBUF - 2) * 2 - 1 = STRBUF * 2 - 5
-	// we still need one more for the '\0': STRBUF * 2 - 4
-	// this is true as long as STRBUF >= 2 max input
-	// yes, it leaves a single space on odd-length strings
-	
-	#define STRSPBUF (STRBUF * 2) - 4
+void mangoh(const char *msg) {
 	unsigned char i = 0;
-	char *msgsp = calloc(sizeof(char *), STRSPBUF);
-	for (i = 0; i < STRSPBUF; ++i) {
-		msgsp[i] = msg[i/2];
-		msgsp[++i] = ' ';
-	}
-
-	for (i = 0; i <= STRSPBUF; ++i) {
-		printf("%d %x\n", i, msgsp[i]);
-	}
-	printf("%s\n", msgsp);
+        // notes
+        // strlen(msg) == msglen (includes '\0')
+        // (msglen) * 2 == msglen': another NUL, and a space for every char, including '\0'
+        // subtract 3 to remove both NULs, and one's space
+        // note this breaks using regular %s formats, but this works in this scenario
+        // this will probably need to be revised for v2+
+        int buflen = (strlen(msg) * 2) - 3;
+        
+        char *msgsp = calloc(sizeof(char *), buflen);
 	
-	return;	
+        for (i = 0; i < buflen; ++i) {
+                msgsp[i] = msg[i/2];
+                msgsp[++i] = ' ';
+        }
+	
+        printf("%s\n", msgsp);
+
+        free(msgsp);
+	
+        return;
 }
 
 void
 mango(const char *str) {
-	unsigned char i = 0;
-	char *m = calloc(sizeof(char *), STRBUF);
-
-	if (m == NULL) {
-		fprintf(stderr, "Failed to allocate memory, terminating with"
-				" EXIT_FAILURE.\r\n");
-		exit(EXIT_FAILURE);
-	}
-
-	strncat(m, str, STRBUF-1);
-
-	mangoh(m);
-
-	mangov(m);
-
-
-	free(m);
-
-	return;
+        mangoh(str);
+        mangov(str);
+        return;
 }
 
 int
 main (int argc, char **argv) {
-	unsigned char i = 0;
-	if (argc > 1) {
-		parseopts(argc, argv);
-	}
-	else {
-		mango("mango");
-	}
+        unsigned char i = 0;
+	const char *msg = NULL;
+	
+        parseopts(argc, argv, msg);
 
-
-	return EXIT_SUCCESS;
+        return EXIT_SUCCESS;
 }
 
 void
-parseopts(int argc, char **argv) {
-	int c = 0;
-	while ((c = getopt(argc, argv, "h?")) != -1) {
-		printf("%d", c)
-		switch (c) {
-			case 'h':
-			case '?':
-			default :
-				usage(argc, argv);
-		}
-	}
+parseopts(int argc, char **argv, const char *msg) {
+        unsigned char rflag = 0;
+        int c = 0;
+        int i = 0, j = 0;
 
-	return;
+        while ((c = getopt(argc, argv, "h?")) != -1) {
+                switch (c) {
+                        case 'h':
+                        case '?':
+                        default :
+                                usage(argc, argv);
+                                break;
+                        case 'r':
+                                rflag = 1;
+
+                                break;
+                }
+        }
+
+        c = 0;
+
+        msg = argvtostr(argc, argv);
+        mango(msg);
+        free((char *) msg);
 }
+
+const char *
+argvtostr (int argc, char **argv) {
+        int i = 0, j = 0;
+        int c = 0;
+        char *msg = NULL;
+        // find length of argv, add spaces between values, see below
+        // TODODONE: these for loops into a argv2str(), this function is becoming a 'god object'
+        // TODO: make parseopts a helper, make main() do a litle bit of lifting
+        for (i = 1; i < argc; ++i) {
+                for (j = 0; j < strlen(argv[i]); ++j) {
+                        c++; // characters
+                }
+                c++; // spaces
+        }
+
+        msg = calloc(sizeof(char *), c + 1);
+
+        c = 0;
+
+        for (i = 1; i < argc; ++i) {
+                for (j = 0; j < strlen(argv[i]); ++j) {
+                        msg[c++] = argv[i][j];
+                }
+                msg[c++] = ' ';
+        }
+
+        return (const char*) msg;
+}
+
 
 void
 usage(int argc, char **argv) {
-	fprintf(stderr,
-		"Usage: %s\n",
-		argv[0]);
-	exit(EXIT_SUCCESS);
+        fprintf(stderr,
+                "Usage: %s [your message with as many spaces as you want]\r\n"
+                "Mango your text!\r\n"
+                "\t -h, -?: This message!\r\n"
+                "\t     -v: Version & license information\r\n"
+                "\t     -r: Reverse mango!\r\n",
+                argv[0]);
+        exit(EXIT_SUCCESS);
 }
