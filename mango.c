@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <errno.h>
 #include <string.h>
 
 // 'sys' functions -- shell to API
@@ -16,13 +17,30 @@ const char * argvtostr (int, char **);
 
 // API functions -- API to ABI (to be moved to a library)
 void mango(const char *);
-void mangor(const char *x) {}; // 2.0 feature
+void mangor(const char *); // 2.0 feature
 
 // ABI functions -- the real workhorses, computational functions (also to be moved to a library)
 void mangoh(const char *);
 void mangov(const char *);
 void mangorv(const char *); // 2.0 feature
 void mangorh(const char *); // 2.0 feature
+
+void mangor(const char *msg) {
+        const char *msgr = NULL;
+
+        if (msgr == NULL) {
+                fprintf(stderr, "Error: mangor() message is null pointer: %s\r\n", 
+                        strerror(errno));
+        }
+        
+        msgr = strrev(msg);
+        
+        mangorv();
+        mangorh();
+        
+        return;
+  }
+	
 
 void mangov(const char *msg) {
         unsigned char i = 0;
