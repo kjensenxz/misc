@@ -42,3 +42,6 @@ using a couple more assembly tricks. As of the first addition to this repository
 
 ### [tictactoe/](tictactoe)
 A simple Tic Tac Toe game written in C.
+
+### [rot/](rot)
+A Caesar cipher implementation with arbitrary radix selection.
