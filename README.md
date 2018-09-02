@@ -40,3 +40,5 @@ Tiny hello world, totalling 125 bytes after being assembled, created by smashing
 and `e_shoff`, `e_flags` space, which is only possible by using 64-bit executables, since it uses larger fields than 32-bit ELF. Theoretically, it could be made smaller by
 using a couple more assembly tricks. As of the first addition to this repository, it has a partially correct ELF header, though `objdump` doesn't play nice with it, `file` reads most of the header correctly.
 
+### [tictactoe/](tictactoe)
+A simple Tic Tac Toe game written in C.
