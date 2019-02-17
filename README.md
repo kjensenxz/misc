@@ -45,3 +45,6 @@ A simple Tic Tac Toe game written in C.
 
 ### [rot/](rot)
 A Caesar cipher implementation with arbitrary radix selection.
+
+### [kexec.sh](kexec.sh)
+A simple front-end to kexec.
