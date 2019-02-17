@@ -41,7 +41,7 @@ and `e_shoff`, `e_flags` space, which is only possible by using 64-bit executabl
 using a couple more assembly tricks. As of the first addition to this repository, it has a partially correct ELF header, though `objdump` doesn't play nice with it, `file` reads most of the header correctly.
 
 ### [tictactoe/](tictactoe)
-A simple Tic Tac Toe game written in C.
+A simple Tic Tac Toe game written in C (now with headers for including in other programs).
 
 ### [rot/](rot)
 A Caesar cipher implementation with arbitrary radix selection.
